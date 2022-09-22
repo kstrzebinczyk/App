@@ -1,0 +1,59 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Przepisyyy";
+}
+@{
+    //C# code
+    List<App.Models.RecipeModel> recipes = new List<App.Models.RecipeModel>();
+    using(var db = new App.Models.AppDbContext())
+    {
+        recipes = db.Recipes.Where(
+            p => p.IsPublic == true && 
+            p.Created <= DateTime.Now && 
+            p.Deleted == false
+        ).ToList();
+    }
+    
+}
+
+<h1>Home page</h1>
+<p>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+    Optio voluptatibus illo eligendi nesciunt dolor sunt rem 
+    suscipit, quo, nemo recusandae earum impedit magni 
+    mollitia quod omnis nulla voluptatum. Quisquam, quis.
+</p>
+<div class="container">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Excerpt</th>
+      <th scope="col">Ingredients</th>
+      <th scope="col">Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var recipe in @recipes)
+    {
+        <tr>
+            <td>@recipe.RecipeId</td>
+            <td>@recipe.Title</td>
+            <td>@recipe.Excerpt</td>
+            <td>@recipe.Ingredients</td>
+            <td>@recipe.Content</td>
+        </tr>
+    }
+  </tbody>
+</table>
+</div>
+<section class="recipes">
+	@foreach (var recipe in @recipes){
+        <div class="post">
+            <h2>@recipe.Title</h2>
+            <p>@recipe.Excerpt</p>
+            <a href="@recipe.Title.Replace(' ','-')">read more</a>
+        </div>
+    }
+</section>

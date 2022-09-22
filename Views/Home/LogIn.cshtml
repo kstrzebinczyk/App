@@ -1,0 +1,20 @@
+@model App.Models.UserModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<form action="/home/LogIn" method="">
+  <div class="form-group">
+    <label for="Username">Nazwa użytkownika</label>
+    <input type="text" class="form-control" id="InputLogin" placeholder="Login" asp-for="Login">
+  </div>
+  <div class="form-group">
+    <label for="InputPassword">Hasło</label>
+    <input type="password" class="form-control" id="InputPassword" asp-for="Password">
+    <small id="signupLink" class="form-text text-muted">Jeśli nie posiadasz konta <a asp-area="" asp-controller="Home" asp-action="SignUp" class="link-primary">zarejestruj się</a></small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
